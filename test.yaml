@@ -9,4 +9,11 @@
     debug:
       msg: Hello, world!
   - name: install collection
-    command: ansible-galaxy collection install ibm.cloudcollection 
+    command: ansible-galaxy collection install ibm.cloudcollection
+  - name: fetch a resource group
+    ibm.cloudcollection.ibm_resource_group_info:
+    
+    name: "Default"
+
+
+
