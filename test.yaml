@@ -10,10 +10,23 @@
       msg: Hello, world!
   - name: install collection
     command: ansible-galaxy collection install ibm.cloudcollection
+  
   - name: fetch a resource group
     ibm.cloudcollection.ibm_resource_group_info:
       name: "Default"
-      ibmcloud_api_key: ""
+      ibmcloud_api_key: "{{ api_key }}"
+    register: resource_group_output
+
+  - name: Save existing resource group info as fact
+    set_fact:
+      cacheable: True
+      resource_group: "{{ resource_group_output.resource }}"
+    when: resource_group_output.resource.id is defined
+
+  - name: Print Resource group info 
+    debug:
+      msg: "Resource Group : {{ resource_group }}"
+    
 
 
 
